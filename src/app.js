@@ -2,13 +2,6 @@
 var HelloWorldLayer = cc.Layer.extend({
     sprFondo:null,
     sprConejo:null,
-    ctor:function () {
-        this._super();
-        //Obteniendo el tamaño de la pantalla
-
-var HelloWorldLayer = cc.Layer.extend({
-    sprFondo:null,
-    sprConejo:null,
     bomb: [],
     carrots: [],
     
@@ -40,7 +33,7 @@ var HelloWorldLayer = cc.Layer.extend({
                 
                 var gam = event.getCurrentTarget();
                 //right
-                if(keyCode === 39 && gam.Bunny.x < 670){    
+                if(keyCode === 39 && gam.Bunny.x < 670){      
                     gam.Bunny.x += 10;
                 }
                 //left
@@ -49,6 +42,33 @@ var HelloWorldLayer = cc.Layer.extend({
                 }
             }
         }, this);
+    
+    MkBomb : function(){
+        //Add bombs
+		var bomb = new cc.Sprite(res.bomba_png);
+        var place = this.random(270,680)
+        var move = cc.moveTo(this.random(2,5), place, 60);
+        var rtcBomb = bomba.getBoundingBox();
+
+        bomb.setPosition(place, 790);
+        this.addChild(bomb, 1)   
+		bomba.runAction(move);
+		this.bomba.push(bomb);
+        
+        
+	},
+    
+    MkCarrot : function(){
+        //add carrots
+		var carrot = new cc.Sprite(res.carrot_png);
+        var place = this.random(270,690);
+        var move = cc.moveTo(this.random(2,5), place, 70);
+		
+        carrot.setPosition(place, 790);
+        this.addChild(carrot, 1);
+        carrot.runAction(move);
+        this.carrots.push(carrot);		
+	},
 
 
         return true;
@@ -62,4 +82,5 @@ var HelloWorldScene = cc.Scene.extend({
         this.addChild(layer);
     }
 });
+
 
