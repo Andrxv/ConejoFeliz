@@ -75,6 +75,55 @@ var HelloWorldLayer = cc.Layer.extend({
         return true;
     },
     
+    //carrot movement
+    var carrot = cc.Sprite.extend({
+    	
+    ctor: function(y){
+    	
+        this._super(res.carrot_png);
+        this.scheduleUpdate();
+        this.attr({
+            y: y
+        });
+        return true;
+    },
+    
+    update: function(dt) {
+    	
+        this.onUpdate();
+        this.runAction(cc.moveBy(0.5, cc.p(0, -getRandomArbitrary(1, 10))));
+        
+        if(this.y <= 0){
+        	
+            this.removeFromParent(true);
+        }
+    },
+    
+    // bomb movement
+    var bomb = cc.Sprite.extend({
+    	
+    ctor: function(y){
+    	
+        this._super(res.bomba_png);
+        this.scheduleUpdate();
+        this.attr({
+            y: y
+        });
+        return true;
+    },
+    update: function(dt) {
+    	
+        this.onUpdate();
+        this.runAction(cc.moveBy(0.5, cc.p(0, -getRandomArbitrary(1, 10))));
+        
+        if(this.y <= 0){
+        	
+            manager.addPoint(1);
+            this.removeFromParent(true);
+            this.onBoom();
+        }
+    },
+    
     //adds the point effect
     point : function(x, y){
     	
