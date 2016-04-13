@@ -4,6 +4,8 @@ var HelloWorldLayer = cc.Layer.extend({
     sprConejo:null,
     bomb: [],
     carrots: [],
+    points: 0,
+    pointsLbl: null,
     
     
     function getRandom(min, max) {
@@ -24,6 +26,13 @@ var HelloWorldLayer = cc.Layer.extend({
         this.sprConejo = new cc.Sprite(res.conejo_png);
         this.sprConejo.setPosition(size.width / 2,size.height * 0.15);
         this.addChild(this.sprConejo, 1); 
+        
+        this.pointsLbl = new cc.LabelTTF('Points: 0',  'Arial', 16);
+        this.pointsLbl.attr({
+            anchorX: 0,
+            anchorY: 0
+        });
+        this.pointsLbl.setColor(cc.color(255,255,255, 100));
     
     
         //Handles the movement with keyboard input ~
@@ -175,7 +184,8 @@ var HelloWorldLayer = cc.Layer.extend({
 	    this.point(this.carrots[i].getPositionX(), this.carrots[i].getPositionY());    	
 	        	
 	    this.removeChild(this.carrots[i]);
-            this.carrots.splice(i,1);     
+            this.carrots.splice(i,1);
+            points++
 		
       }
 });
