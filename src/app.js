@@ -23,7 +23,7 @@ var HelloWorldLayer = cc.Layer.extend({
         //posicionando la imagen de fondo
         this.sprConejo = new cc.Sprite(res.conejo_png);
         this.sprConejo.setPosition(size.width / 2,size.height * 0.15);
-        this.addChild(this.sprConejo, 1);
+        this.addChild(this.sprConejo, 1); 
     
     
         //Handles the movement with keyboard input ~
