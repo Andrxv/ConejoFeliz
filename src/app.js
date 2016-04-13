@@ -57,6 +57,7 @@ var HelloWorldLayer = cc.Layer.extend({
         
         
 	},
+
     
     MkCarrot : function(){
         //add carrots
@@ -72,7 +73,62 @@ var HelloWorldLayer = cc.Layer.extend({
 
 
         return true;
-    }
+    },
+    
+    //adds the point effect
+    point : function(x, y){
+    	
+        var poi = new cc.ParticleSystem(res.czanahora_plist);
+        point.setDuration(0.1);
+        point.setScale(0.7);
+        point.setTexture(cc.textureCache.addImage(res.zanahoria_png));
+        point.setPosition(x, y);
+        this.addChild(poi,3);
+    
+    //adds the explotion effect
+    explosion : function(x, y){
+        var exp = new cc.ParticleSystem(res.explosion_plist);
+        explosion.setDuration(0.1);
+        explosion.setScale(0.44);
+        explosion.setTexture(cc.textureCache.addImage(res.explosion_png));
+        explosiom.setPosition(x, y);
+        this.addChild(exp,3);
+    },
+    
+    
+    
+    colissions : function (){
+     
+    var place = this.sprConejo.getBoundingBox();
+      
+    //collision with bombs
+    for(var i = 0 ; i < this.bomb.length; i++){
+    	
+          var place2 = this.bomb[i].getBoundingBox();
+          
+          if(place.x < place2.x + place2.width && place.x + place.width > place2.x && 
+            place.y < place2.y + place2.height &&place.y + place.height > place2.y){
+            	
+            this.explosion(this.bomb[i].getPositionX(), this.bomb[i].getPositionY());
+
+  
+            }
+            this.removeChild(this.bomb[i]);
+            this.bomb.splice(i,1);
+         }
+
+	//collisions with carrots
+	for(var i = 0 ; i < this.bomb.length; i++){
+	    var place2 = this.carrots[i].getBoundingBox();
+	    if(place.x < place2.x + place2.width && place.x + place.width > place2.x && 
+	        place.y < place2.y + place2.height &&place.y + place.height > place2.y){
+	    
+	    this.point(this.carrots[i].getPositionX(), this.carrots[i].getPositionY());    	
+	        	
+	    this.removeChild(this.carrots[i]);
+            this.carrots.splice(i,1);     
+		
+      }
 });
 
 var HelloWorldScene = cc.Scene.extend({
